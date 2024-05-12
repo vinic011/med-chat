@@ -1,9 +1,19 @@
 from abc import ABC, abstractmethod
+from langchain_core.prompts import ChatPromptTemplate
+
+
+template = """Answer the question based only on the following context:
+
+{context}
+
+Question: {question}
+"""
 
 class Model(ABC):
     def __init__(self) -> None:
-        pass
+        self.template = template
+        self.prompt = ChatPromptTemplate.from_template(template)
 
     @abstractmethod
-    def ask(self, question: str) -> str:
+    def answer(self, question: str) -> str:
         pass
